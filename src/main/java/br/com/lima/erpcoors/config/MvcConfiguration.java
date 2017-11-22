@@ -1,19 +1,17 @@
 package br.com.lima.erpcoors.config;
 
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
 @Configuration
-@EnableWebMvc
+// @EnableWebMvc  --> Not use this annotation. If you use, the WebMVC will force static-files resource configuration, and you lose access.
 public class MvcConfiguration  extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        System.out.println("reached here ");
-        registry.addResourceHandler("/resources/**").addResourceLocations("/static/");
+        registry.addResourceHandler("/static").addResourceLocations("classpath:/static/");
     }
 
     @Override
