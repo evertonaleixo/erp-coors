@@ -10,6 +10,31 @@ public class IndexController {
 	public String index() {
 		return "/index";
 	}
+	
+	@GetMapping("/clientes")
+	public String clientes() {
+		return "/clientes";
+	}
+	
+	@GetMapping("/produtos")
+	public String produtos() {
+		return "/produtos";
+	}
+	
+	@GetMapping("/fluxo")
+	public String fluxo() {
+		return "/fluxo";
+	}
+	
+	@GetMapping("/nota")
+	public String nota() {
+		return "/nota";
+	}
+	
+	@GetMapping("/usuarios")
+	public String usuarios() {
+		return "/usuarios";
+	}
 
 	@GetMapping("/login")
 	public String login() {
