@@ -19,7 +19,7 @@
 			</div>
 			<div class="col-sm-5">&nbsp;</div>
 			<div class="col-sm-1">
-				<form action="cliente/novo">
+				<form action="/clientes/novo">
 					<input type="submit" class="btn btn-primary" value="Novo"> </input>
 				</form>
 			</div>
@@ -32,13 +32,28 @@
 						<th>nome</th>
 						<th>telefone</th>
 						<th>endereco</th>
-						<th>Detalhes</th>
+						<th>Editar</th>
 						<th>Excluir</th>
 					</tr>
 				</thead>
 
 				<tbody>
-
+					<tr th:each="client : ${clients}">
+						<td th:text="${client.id}"></td>
+						<td th:text="${client.name}"></td>
+						<td th:text="${client.phones}"></td>
+						<td th:text="${client.address}"></td>
+						<td>
+						    <div class="btn-group pull-right">
+						        <a class="btn btn-sm btn-primary" th:href="@{/clientes/{id}(id=${client.id})}" >Editar</a>
+						   </div>
+						</td>
+						<td>
+						    <div class="btn-group pull-right">
+						        <a class="delete btn btn-sm btn-danger" th:href="@{/clientes/del/{id}(id=${post.id})}">Excluir</a>
+						   </div>
+						</td>
+					</tr>
 				</tbody>
 			</table>
 		</div>
