@@ -28,29 +28,29 @@
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th>ID</th>
+						<th style="text-align:center; width:50px;">ID</th>
 						<th>nome</th>
 						<th>telefone</th>
 						<th>endereco</th>
-						<th>Editar</th>
-						<th>Excluir</th>
+						<th style="text-align:center; width:100px;">Editar</th>
+						<th style="text-align:center; width:100px;">Excluir</th>
 					</tr>
 				</thead>
 
 				<tbody>
 					<tr th:each="client : ${clients}">
-						<td th:text="${client.id}"></td>
+						<td th:text="${client.id}" style="text-align:center;"></td>
 						<td th:text="${client.name}"></td>
 						<td th:text="${client.phones}"></td>
 						<td th:text="${client.address}"></td>
-						<td>
-						    <div class="btn-group pull-right">
+						<td style="text-align:center;">
+						    <div class="btn-group">
 						        <a class="btn btn-sm btn-primary" th:href="@{/clientes/{id}(id=${client.id})}" >Editar</a>
 						   </div>
 						</td>
-						<td>
-						    <div class="btn-group pull-right">
-						        <a class="delete btn btn-sm btn-danger" th:href="@{/clientes/del/{id}(id=${post.id})}">Excluir</a>
+						<td style="text-align:center;">
+						    <div class="btn-group">
+						        <a class="delete btn btn-sm btn-danger" th:href="@{/clientes/del/{id}(id=${client.id})}">Excluir</a>
 						   </div>
 						</td>
 					</tr>
