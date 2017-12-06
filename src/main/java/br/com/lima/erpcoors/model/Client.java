@@ -1,9 +1,8 @@
 package br.com.lima.erpcoors.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CollectionTable;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,10 +17,13 @@ public class Client {
 	
 	private String cpf_cnpj;
 	private String name;
-	@ElementCollection
-	@CollectionTable(name = "phone")
-	private List<String> phones;
+	@OneToMany
+	private List<Phone> phones;
 	private String address;
+	
+	public Client() {
+		phones = new ArrayList<>();
+	}
 	
 	@OneToMany
 	private List<Order> orders;
@@ -50,11 +52,11 @@ public class Client {
 		this.name = name;
 	}
 
-	public List<String> getPhones() {
+	public List<Phone> getPhones() {
 		return phones;
 	}
 
-	public void setPhones(List<String> phones) {
+	public void setPhones(List<Phone> phones) {
 		this.phones = phones;
 	}
 
