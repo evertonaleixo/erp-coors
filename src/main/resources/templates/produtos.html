@@ -1,22 +1,68 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>erp-coors</title>
+<title>erp-coors</title>
 
-    <div th:replace="fragments/header :: header-css"/>
+<div th:replace="fragments/header :: header-css" />
 
 </head>
 <body>
-	<div th:replace="fragments/header :: header"/>
-	
+	<div th:replace="fragments/header :: header" />
+
 	<div class="container">
-	
-	    Produtos
-	
+		<div class="row" style="padding-bottom: 25px;">
+			<div class="col-sm-6">
+				<form>
+					Filtro: <input name="filter" type="text" size="40"></input> <input
+						type="submit" class="btn btn-success" value="Filtrar"></input>
+				</form>
+			</div>
+			<div class="col-sm-5">&nbsp;</div>
+			<div class="col-sm-1">
+				<form action="/produtos/novo">
+					<input type="submit" class="btn btn-primary" value="Novo">
+					</input>
+				</form>
+			</div>
+		</div>
+		<div class="row">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th style="text-align: center; width: 50px;">ID</th>
+						<th>Código</th>
+						<th>Descrição</th>
+						<th>Valor</th>
+						<th style="text-align: center; width: 100px;">Editar</th>
+						<th style="text-align: center; width: 100px;">Excluir</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr th:each="product : ${products}">
+						<td th:text="${product.id}" style="text-align: center;"></td>
+						<td th:text="${product.cod}"></td>
+						<td th:text="${product.description}"></td>
+						<td th:text="${product.value}"></td>
+						<td style="text-align: center;">
+							<div class="btn-group">
+								<a class="btn btn-sm btn-primary"
+									th:href="@{/produtos/{id}(id=${product.id})}">Editar</a>
+							</div>
+						</td>
+						<td style="text-align: center;">
+							<div class="btn-group">
+								<a class="delete btn btn-sm btn-danger"
+									th:href="@{/produtos/del/{id}(id=${product.id})}">Excluir</a>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
-	<!-- /.container -->
-	
-	<div th:replace="fragments/footer :: footer"/>
+
+	<div th:replace="fragments/footer :: footer" />
 
 </body>
 </html>

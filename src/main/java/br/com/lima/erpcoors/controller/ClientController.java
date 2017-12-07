@@ -24,10 +24,10 @@ import br.com.lima.erpcoors.repository.PhoneRepository;
 public class ClientController {
 	
 	@Autowired
-	ClientRepository clients;
+	private ClientRepository clients;
 	
 	@Autowired
-	PhoneRepository phones;
+	private PhoneRepository phones;
 	
 	
 	@GetMapping("/listar")

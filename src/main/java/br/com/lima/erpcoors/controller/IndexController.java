@@ -11,11 +11,6 @@ public class IndexController {
 		return "/index";
 	}
 	
-	@GetMapping("/produtos")
-	public String produtos() {
-		return "/produtos";
-	}
-	
 	@GetMapping("/fluxo")
 	public String fluxo() {
 		return "/fluxo";
