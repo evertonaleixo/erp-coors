@@ -15,10 +15,19 @@ public class Product {
 
 	private String description;
 	private String cod;
+	private String unit;
 	private BigDecimal value;
 
 	public long getId() {
 		return id;
+	}
+
+	public String getUnit() {
+		return unit;
+	}
+
+	public void setUnit(String unit) {
+		this.unit = unit;
 	}
 
 	public void setId(long id) {
