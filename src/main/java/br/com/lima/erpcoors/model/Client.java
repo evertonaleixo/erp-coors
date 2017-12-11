@@ -17,16 +17,17 @@ public class Client {
 	
 	private String cpf_cnpj;
 	private String name;
-	@OneToMany
-	private List<Phone> phones;
 	private String address;
 	
+	@OneToMany
+	private List<Phone> phones;
+
+	@OneToMany(mappedBy="client")
+	private List<Order> orders;
+
 	public Client() {
 		phones = new ArrayList<>();
 	}
-	
-	@OneToMany
-	private List<Order> orders;
 
 	public long getId() {
 		return id;
@@ -68,12 +69,12 @@ public class Client {
 		this.address = address;
 	}
 
-	public List<Order> getOrders() {
-		return orders;
-	}
-
-	public void setOrders(List<Order> orders) {
-		this.orders = orders;
-	}
+//	public List<Order> getOrders() {
+//		return orders;
+//	}
+//
+//	public void setOrders(List<Order> orders) {
+//		this.orders = orders;
+//	}
 	
 }

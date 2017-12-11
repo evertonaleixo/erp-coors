@@ -44,7 +44,7 @@ public class OrderController {
 
 	@GetMapping("/novo")
 	public ModelAndView getFicha(Order order) {
-		ModelAndView mav = new ModelAndView("produtos_ficha");
+		ModelAndView mav = new ModelAndView("orcamentos_ficha");
 		mav.addObject("order", order);
 
 		return mav;

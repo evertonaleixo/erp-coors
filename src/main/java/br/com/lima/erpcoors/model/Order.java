@@ -12,7 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-@Entity
+@Entity(name="order_table")
 public class Order {
 
 	@Id
@@ -21,7 +21,7 @@ public class Order {
 
 	private Date created;
 
-	@OneToOne(cascade = CascadeType.DETACH, mappedBy="Order")
+	@OneToOne
 	private Client client;
 
 	@OneToMany(cascade = CascadeType.DETACH)
