@@ -32,12 +32,12 @@ public class OrderController {
 		return getFicha(one);
 	}
 
-	@PostMapping(value = "/novo", params = { "newProd" })
+	@PostMapping(value = "/novo")
 	public ModelAndView newClient(Order order) {
 		if (order.getId() < 0)
 			order.setId(0L);
 
-		order = orders.save(order);
+//		order = orders.save(order);
 
 		return produtos();
 	}

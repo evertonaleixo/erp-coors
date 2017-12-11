@@ -7,11 +7,14 @@ import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.lima.erpcoors.model.Client;
@@ -28,6 +31,27 @@ public class ClientController {
 	
 	@Autowired
 	private PhoneRepository phones;
+
+	@GetMapping(path = "/filtrar", produces= {MediaType.APPLICATION_JSON_VALUE})
+	public @ResponseBody List<Client> filterSugestion(@RequestParam String phrase) {
+		List<Client> all = clients.findAll();
+		
+		Client cli = new Client();
+		cli.setAddress("Rua 10");
+		cli.setCpf_cnpj("02932165178");
+		cli.setId(7777);
+		cli.setName("Everton ALeixo");
+		List<Phone> phones = new ArrayList<>();
+		Phone f = new Phone();
+		f.setId(456);
+		f.setPhone("981181968");
+		phones.add(f);
+		cli.setPhones(phones);
+		
+		all.add(cli);
+		
+		return all;
+	}
 	
 	
 	@GetMapping("/listar")

@@ -16,11 +16,6 @@ public class IndexController {
 		return "/fluxo";
 	}
 	
-	@GetMapping("/nota")
-	public String nota() {
-		return "/nota";
-	}
-	
 	@GetMapping("/usuarios")
 	public String usuarios() {
 		return "/usuarios";
@@ -31,7 +26,7 @@ public class IndexController {
 		return "/login";
 	}
 
-	@GetMapping("/403")
+	@GetMapping(path = { "/403"})
 	public String error403() {
 		return "/error/403";
 	}

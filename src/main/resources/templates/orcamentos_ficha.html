@@ -4,6 +4,56 @@
 <title>erp-coors</title>
 
 <div th:replace="fragments/header :: header-css" />
+
+<!-- JS file https://www.jsdelivr.com/package/npm/easy-autocomplete?path=dist  -->
+<script src="https://cdn.jsdelivr.net/npm/easy-autocomplete@1.3.5/dist/jquery.easy-autocomplete.min.js"></script>
+
+<!-- CSS file -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easy-autocomplete@1.3.5/dist/easy-autocomplete.min.css"> </link>
+
+<!-- Additional CSS Themes file - not required-->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easy-autocomplete@1.3.5/dist/easy-autocomplete.themes.min.css"> </link>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	// Sugestions on clients
+	var options = {
+		placeholder: "Nome ou ID do cliente",
+		requestDelay: 500,
+		url: function(phrase) {
+			return "../clientes/filtrar?phrase=" + phrase;
+		},
+		getValue: "name",
+		list: {
+			onSelectItemEvent: function() {
+				var id = $("#cli_name").getSelectedItemData().id;
+				var cpf = $("#cli_name").getSelectedItemData().cpf_cnpj;
+
+				$("#cli_id").val(id).trigger("change");
+				$("#cli_cpf").val(cpf).trigger("change");
+			},
+			onLoadEvent: function() {
+				$("#cli_id").val("").trigger("change");
+				$("#cli_cpf").val("").trigger("change");
+			},
+			showAnimation: {
+				type: "fade", //normal|slide|fade
+				time: 400,
+				callback: function() {}
+			},
+			hideAnimation: {
+				type: "slide", //normal|slide|fade
+				time: 400,
+				callback: function() {}
+			}
+		}
+	};
+
+	$("#cli_name").easyAutocomplete(options);
+	
+	// TODO: Sugestions on products
+});
+</script>
 </head>
 
 <body>
@@ -33,11 +83,19 @@
 
 				<div class="form-group row">
 					<label for="name" class="col-sm-1 col-form-label">Cliente</label>
-					<div class="col-sm-11">
+					<div class="col-sm-8">
 						<input type="text" class="form-control" id="cli_name"
 							th:field="*{client.name}" placeholder="Cliente"> </input>
-						<input type="hidden" class="form-control" id="cli_id"
+					</div>
+					
+					<div class="col-sm-1">
+						<input type="text" class="form-control" id="cli_id" readOnly="readonly"
 							th:field="*{client.id}"> </input>
+					</div>
+					
+					<div class="col-sm-2">
+						<input type="text" class="form-control" id="cli_cpf" readOnly="readonly"
+							th:field="*{client.cpf_cnpj}"> </input>
 					</div>
 				</div>
 

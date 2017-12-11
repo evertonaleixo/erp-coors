@@ -17,7 +17,7 @@ public class Order {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private Long id;
+	private long id;
 
 	private Date created;
 
@@ -33,11 +33,11 @@ public class Order {
 
 	private BigDecimal value;
 
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
