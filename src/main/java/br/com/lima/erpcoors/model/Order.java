@@ -1,6 +1,7 @@
 package br.com.lima.erpcoors.model;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -32,6 +33,10 @@ public class Order {
 	private BigDecimal fullValue;
 
 	private BigDecimal value;
+	
+	public Order() {
+		products = new ArrayList<>();
+	}
 
 	public long getId() {
 		return id;

@@ -63,14 +63,17 @@ $(document).ready(function(){
 				onSelectItemEvent: function() {
 					var unit = $("#prod_add").getSelectedItemData().unit;
 					var val_ = $("#prod_add").getSelectedItemData().value;
+					var id_ = $("#prod_add").getSelectedItemData().id;
 
 					$("#prod_medida").val(unit).trigger("change");
 					$("#prod_v_total").val(val_).trigger("change");
+					$("#prod_add_id").val(id_).trigger("change");
 					$("#prod_qnt").val(1).trigger("change");
 				},
 				onLoadEvent: function() {
-					$("#cli_id").val("").trigger("change");
-					$("#cli_cpf").val("").trigger("change");
+					$("#prod_medida").val("").trigger("change");
+					$("#prod_v_total").val("").trigger("change");
+					$("#prod_qnt").val(0).trigger("change");
 				},
 				showAnimation: {
 					type: "fade", //normal|slide|fade
@@ -168,7 +171,7 @@ $(document).ready(function(){
 					<div class="col-sm-5">
 						<input type="text" class="form-control" id="prod_add"
 							placeholder="Produto a adicionar"> </input>
-						<input type="hidden" class="form-control" id="prod_add_id"
+						<input type="hidden" class="form-control" id="prod_add_id" name="prod_add_id"
 							> </input>
 					</div>
 					
@@ -179,7 +182,7 @@ $(document).ready(function(){
 					
 					<label for="name" class="col-sm-1 col-form-label">Quantidade:</label>
 					<div class="col-sm-1">
-						<input type="text" class="form-control" id="prod_qnt"
+						<input type="text" class="form-control" id="prod_qnt" name="prod_qnt"
 							> </input>
 					</div>
 					
@@ -190,7 +193,7 @@ $(document).ready(function(){
 					</div>
 					
 					<div class="col-sm-1">
-						<button type="submit" name="add_prod" class="btn btn-primary">Adicionar</button>
+						<button type="submit" name="newItem" value="newItem" class="btn btn-primary">Adicionar</button>
 					</div>
 				</div>
 				
@@ -199,6 +202,7 @@ $(document).ready(function(){
 				</div>
 				
 				<div class="form-group row" th:each="prod, rowStat : *{products}">
+					<h6>1</h6>
 					<!-- 
 					<label for="phone1" class="col-sm-1 col-form-label">Telefone 
 						</label>
