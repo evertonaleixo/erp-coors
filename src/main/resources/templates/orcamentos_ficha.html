@@ -17,7 +17,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	// Sugestions on clients
-	var options = {
+	var options_cli = {
 		placeholder: "Nome ou ID do cliente",
 		requestDelay: 500,
 		url: function(phrase) {
@@ -49,9 +49,43 @@ $(document).ready(function(){
 		}
 	};
 
-	$("#cli_name").easyAutocomplete(options);
+	$("#cli_name").easyAutocomplete(options_cli);
 	
-	// TODO: Sugestions on products
+	// Sugestions on products
+	var options_prod = {
+			placeholder: "Produto à adicionar",
+			requestDelay: 500,
+			url: function(phrase) {
+				return "../produtos/filtrar?phrase=" + phrase;
+			},
+			getValue: "description",
+			list: {
+				onSelectItemEvent: function() {
+					var unit = $("#prod_add").getSelectedItemData().unit;
+					var val_ = $("#prod_add").getSelectedItemData().value;
+
+					$("#prod_medida").val(unit).trigger("change");
+					$("#prod_v_total").val(val_).trigger("change");
+					$("#prod_qnt").val(1).trigger("change");
+				},
+				onLoadEvent: function() {
+					$("#cli_id").val("").trigger("change");
+					$("#cli_cpf").val("").trigger("change");
+				},
+				showAnimation: {
+					type: "fade", //normal|slide|fade
+					time: 400,
+					callback: function() {}
+				},
+				hideAnimation: {
+					type: "slide", //normal|slide|fade
+					time: 400,
+					callback: function() {}
+				}
+			}
+		};
+
+		$("#prod_add").easyAutocomplete(options_prod);
 });
 </script>
 </head>
