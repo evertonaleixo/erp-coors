@@ -139,25 +139,32 @@ $(document).ready(function(){
 				<div class="form-group row">
 					<label for="name" class="col-sm-1 col-form-label">Num. Prod.:</label>
 					<div class="col-sm-2">
-						<input type="text" class="form-control" id="cli_id" readOnly="readonly"
+						<input type="text" class="form-control" id="cli_id" readOnly="readonly" 
+						   th:value="*{totalItens}"
 							> </input>
 					</div>
 					
 					<label for="name" class="col-sm-1 col-form-label">Valor:</label>
 					<div class="col-sm-2">
-						<input type="text" class="form-control" id="cli_id" readOnly="readonly"
+						<input type="text" class="form-control" id="cli_id" readOnly="readonly" 
+							th:value="${#numbers.formatDecimal(order.fullValue, 0, 'COMMA', 2, 'POINT')}"> </input>
+						<input type="hidden" class="form-control" id="cli_id" readOnly="readonly"
 							th:field="*{fullValue}"> </input>
 					</div>
 					
 					<label for="name" class="col-sm-1 col-form-label">Desconto:</label>
 					<div class="col-sm-2">
-						<input type="text" class="form-control" id="cli_id"
+						<input type="text" class="form-control" id="cli_id" 
+							th:value="${#numbers.formatDecimal(order.discount, 0, 'COMMA', 2, 'POINT')}"> </input>
+						<input type="hidden" class="form-control" id="cli_id" readOnly="readonly"
 							th:field="*{discount}"> </input>
 					</div>
 					
 					<label for="name" class="col-sm-1 col-form-label">Valor Final:</label>
 					<div class="col-sm-2">
 						<input type="text" class="form-control" id="cli_id" readOnly="readonly"
+							th:value="${#numbers.formatDecimal(order.value, 0, 'COMMA', 2, 'POINT')}"> </input>
+						<input type="hidden" class="form-control" id="cli_id" readOnly="readonly"
 							th:field="*{value}"> </input>
 					</div>
 				</div>
@@ -201,25 +208,44 @@ $(document).ready(function(){
 					<h3>Lista de Produtos Adicionados</h3>
 				</div>
 				
-				<div class="form-group row" th:each="prod, rowStat : *{products}">
-					<h6>1</h6>
-					<!-- 
-					<label for="phone1" class="col-sm-1 col-form-label">Telefone 
-						</label>
-					 <div class="col-sm-10">
-						<input type="text" class="form-control"
-							th:field="*{phones[__${rowStat.index}__].phone}" placeholder="Telefone"> </input>
-						<input type="hidden" class="form-control" th:field="*{phones[__${rowStat.index}__].id}" 
-						    th:value="*{phones[__${rowStat.index}__].id}"> </input> 
-					</div>
-					<div class="col-sm-1 row-delete-button">
-                           <button type="submit" class="btn btn-default"
-                                   th:value="*{phones[__${rowStat.index}__].id}"
-                                   name="rmContactPhone">
-                               <i class="glyphicon glyphicon-trash icon-white"></i>
-                           </button>
-                        </div>
-                   -->
+				<div class="form-group row">
+					<table style="" class="table table-hover table-striped">
+						<thead>
+							<tr>
+								<th style="text-align: center">Códido</th>
+								<th style="">Descrição</th>
+								<th style="text-align: center">Unidade</th>
+								<th style="text-align: center">Valor Unit.</th>
+								<th style="text-align: center">Quantidade</th>
+								<th style="text-align: center">Valor Total</th>
+								<th style="text-align: center">Excluir</th>
+							</tr>
+						</thead>
+						
+						<tbody th:each="prod, stat: *{prods}">
+							<input type="hidden" class="form-control" th:field="*{qnts[__${stat.index}__]}"> </input>
+							<input type="hidden" class="form-control" th:field="*{prods[__${stat.index}__].id}"> </input>
+							<input type="hidden" class="form-control" th:field="*{prods[__${stat.index}__].cod}"> </input>
+							<input type="hidden" class="form-control" th:field="*{prods[__${stat.index}__].unit}"> </input>
+							<input type="hidden" class="form-control" th:field="*{prods[__${stat.index}__].description}"> </input>
+							<input type="hidden" class="form-control" th:field="*{prods[__${stat.index}__].value}"> </input>
+
+							<tr>
+								<td style="text-align: center" th:text="${prod.cod}"></td>
+								<td style="" th:text="${prod.description}"></td>
+								<td style="text-align: center" th:text="${prod.unit}"></td>
+								<td style="text-align: center" th:text="${#numbers.formatDecimal(prod.value, 0, 'COMMA', 2, 'POINT')}"></td>
+								<td style="text-align: center" th:text="*{qnts[__${stat.index}__]}"></td>
+								<td style="text-align: center" th:text="${#numbers.formatDecimal((prod.value * order.qnts[__${stat.index}__]), 0, 'COMMA', 2, 'POINT')}"></td>
+								<td style="text-align: center">
+									<button type="submit" class="btn btn-default"
+										th:value="${prod.id}" name="rmProd">
+										<i class="glyphicon glyphicon-trash icon-white"></i>
+									</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 				
 				<div class="form-group row">

@@ -1,17 +1,24 @@
 package br.com.lima.erpcoors.model;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
-import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity(name="order_table")
 public class Order {
@@ -20,13 +27,19 @@ public class Order {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long id;
 
+	@NotNull 
+    @Temporal(TemporalType.TIMESTAMP) 
+    @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
 	private Date created;
 
 	@OneToOne
 	private Client client;
 
-	@OneToMany(cascade = CascadeType.DETACH)
-	private List<Product> products;
+	@ElementCollection
+	@CollectionTable(name="prods_in_order")
+	@MapKeyJoinColumn(name="id")
+	@Column(name="prod")
+	private Map<Product, Double> products;
 
 	private BigDecimal discount;
 
@@ -35,7 +48,10 @@ public class Order {
 	private BigDecimal value;
 	
 	public Order() {
-		products = new ArrayList<>();
+		products = new HashMap<>();
+		this.discount = new BigDecimal(0f);
+		this.fullValue = new BigDecimal(0f);
+		this.value = new BigDecimal(0f);
 	}
 
 	public long getId() {
@@ -62,11 +78,11 @@ public class Order {
 		this.client = client;
 	}
 
-	public List<Product> getProducts() {
+	public Map<Product, Double> getProducts() {
 		return products;
 	}
 
-	public void setProducts(List<Product> products) {
+	public void setProducts(Map<Product, Double> products) {
 		this.products = products;
 	}
 
