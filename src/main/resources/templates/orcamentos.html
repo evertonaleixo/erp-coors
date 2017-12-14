@@ -33,7 +33,7 @@
 						<th>Cliente</th>
 						<th>Data</th>
 						<th>Valor</th>
-						<th style="text-align: center; width: 100px;">Detalhes</th>
+						<th style="text-align: center; width: 100px;">Imprimir</th>
 						<th style="text-align: center; width: 100px;">Excluir</th>
 					</tr>
 				</thead>
@@ -42,12 +42,12 @@
 					<tr th:each="order : ${orders}">
 						<td th:text="${order.id}" style="text-align: center;"></td>
 						<td th:text="${order.client.name}"></td>
-						<td th:text="${order.created}"></td>
-						<td th:text="${order.value}"></td>
+						<td th:text="${{order.created}}"></td>
+						<td th:text="${#numbers.formatDecimal(order.value, 0, 'COMMA', 2, 'POINT')}"></td>
 						<td style="text-align: center;">
 							<div class="btn-group">
 								<a class="btn btn-sm btn-primary"
-									th:href="@{/orcamentos/{id}(id=${order.id})}">Detalhes</a>
+									th:href="@{/orcamentos/{id}(id=${order.id})}">Imprimir</a>
 							</div>
 						</td>
 						<td style="text-align: center;">
