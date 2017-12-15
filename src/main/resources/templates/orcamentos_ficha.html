@@ -89,6 +89,16 @@ $(document).ready(function(){
 		};
 
 		$("#prod_add").easyAutocomplete(options_prod);
+		
+		$("#order_discount_v").blur((e) => {
+			var dicount = $("#order_discount_v").val();
+			var finalValue = $("#order_value_final_v").val();
+			
+			
+			$("#order_discount").val(dicount).trigger("change");
+			$("#order_value_final_v").val(finalValue-dicount).trigger("change");
+			$("#order_value_final").val(finalValue-dicount).trigger("change");
+		});
 });
 </script>
 </head>
@@ -139,32 +149,32 @@ $(document).ready(function(){
 				<div class="form-group row">
 					<label for="name" class="col-sm-1 col-form-label">Num. Prod.:</label>
 					<div class="col-sm-2">
-						<input type="text" class="form-control" id="cli_id" readOnly="readonly" 
+						<input type="text" class="form-control" id="num_prod" readOnly="readonly" 
 						   th:value="*{totalItens}"
 							> </input>
 					</div>
 					
 					<label for="name" class="col-sm-1 col-form-label">Valor:</label>
 					<div class="col-sm-2">
-						<input type="text" class="form-control" id="cli_id" readOnly="readonly" 
+						<input type="text" class="form-control" id="order_value_v" readOnly="readonly" 
 							th:value="${#numbers.formatDecimal(order.fullValue, 0, 'COMMA', 2, 'POINT')}"> </input>
-						<input type="hidden" class="form-control" id="cli_id" readOnly="readonly"
+						<input type="hidden" class="form-control" id="order_value" readOnly="readonly"
 							th:field="*{fullValue}"> </input>
 					</div>
 					
 					<label for="name" class="col-sm-1 col-form-label">Desconto:</label>
 					<div class="col-sm-2">
-						<input type="text" class="form-control" id="cli_id" 
+						<input type="text" class="form-control" id="order_discount_v" 
 							th:value="${#numbers.formatDecimal(order.discount, 0, 'COMMA', 2, 'POINT')}"> </input>
-						<input type="hidden" class="form-control" id="cli_id" readOnly="readonly"
+						<input type="hidden" class="form-control" id="order_discount" readOnly="readonly"
 							th:field="*{discount}"> </input>
 					</div>
 					
 					<label for="name" class="col-sm-1 col-form-label">Valor Final:</label>
 					<div class="col-sm-2">
-						<input type="text" class="form-control" id="cli_id" readOnly="readonly"
+						<input type="text" class="form-control" id="order_value_final_v" readOnly="readonly"
 							th:value="${#numbers.formatDecimal(order.value, 0, 'COMMA', 2, 'POINT')}"> </input>
-						<input type="hidden" class="form-control" id="cli_id" readOnly="readonly"
+						<input type="hidden" class="form-control" id="order_value_final" readOnly="readonly"
 							th:field="*{value}"> </input>
 					</div>
 				</div>
