@@ -14,6 +14,8 @@
 <!-- Additional CSS Themes file - not required-->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easy-autocomplete@1.3.5/dist/easy-autocomplete.themes.min.css"> </link>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/df-number-format/2.1.6/jquery.number.min.js"></script>
+
 <script type="text/javascript">
 $(document).ready(function(){
 	// Sugestions on clients
@@ -53,52 +55,64 @@ $(document).ready(function(){
 	
 	// Sugestions on products
 	var options_prod = {
-			placeholder: "Produto à adicionar",
-			requestDelay: 500,
-			url: function(phrase) {
-				return "../produtos/filtrar?phrase=" + phrase;
+		placeholder: "Produto à adicionar",
+		requestDelay: 500,
+		url: function(phrase) {
+			return "../produtos/filtrar?phrase=" + phrase;
+		},
+		getValue: "description",
+		list: {
+			onSelectItemEvent: function() {
+				var unit = $("#prod_add").getSelectedItemData().unit;
+				var val_ = $("#prod_add").getSelectedItemData().value;
+				var id_ = $("#prod_add").getSelectedItemData().id;
+
+				$("#prod_medida").val(unit).trigger("change");
+				$("#prod_v_total").val(val_).trigger("change");
+				$("#prod_v_unit").val(val_).trigger("change");
+				$("#prod_add_id").val(id_).trigger("change");
+				$("#prod_qnt").val(1).trigger("change");
 			},
-			getValue: "description",
-			list: {
-				onSelectItemEvent: function() {
-					var unit = $("#prod_add").getSelectedItemData().unit;
-					var val_ = $("#prod_add").getSelectedItemData().value;
-					var id_ = $("#prod_add").getSelectedItemData().id;
-
-					$("#prod_medida").val(unit).trigger("change");
-					$("#prod_v_total").val(val_).trigger("change");
-					$("#prod_add_id").val(id_).trigger("change");
-					$("#prod_qnt").val(1).trigger("change");
-				},
-				onLoadEvent: function() {
-					$("#prod_medida").val("").trigger("change");
-					$("#prod_v_total").val("").trigger("change");
-					$("#prod_qnt").val(0).trigger("change");
-				},
-				showAnimation: {
-					type: "fade", //normal|slide|fade
-					time: 400,
-					callback: function() {}
-				},
-				hideAnimation: {
-					type: "slide", //normal|slide|fade
-					time: 400,
-					callback: function() {}
-				}
+			onLoadEvent: function() {
+				$("#prod_medida").val("").trigger("change");
+				$("#prod_v_total").val("").trigger("change");
+				$("#prod_v_unit").val("").trigger("change");
+				$("#prod_qnt").val(0).trigger("change");
+			},
+			showAnimation: {
+				type: "fade", //normal|slide|fade
+				time: 400,
+				callback: function() {}
+			},
+			hideAnimation: {
+				type: "slide", //normal|slide|fade
+				time: 400,
+				callback: function() {}
 			}
-		};
+		}
+	};
 
-		$("#prod_add").easyAutocomplete(options_prod);
+	$("#prod_add").easyAutocomplete(options_prod);
+	
+	$("#order_discount_v").blur((e) => {
+		var dicount = $("#order_discount_v").val();
+		var finalValue = $("#order_value_final_v").val();
 		
-		$("#order_discount_v").blur((e) => {
-			var dicount = $("#order_discount_v").val();
-			var finalValue = $("#order_value_final_v").val();
-			
-			
-			$("#order_discount").val(dicount).trigger("change");
-			$("#order_value_final_v").val(finalValue-dicount).trigger("change");
-			$("#order_value_final").val(finalValue-dicount).trigger("change");
-		});
+		
+		$("#order_discount").val(dicount).trigger("change");
+		$("#order_value_final_v").val(finalValue-dicount).trigger("change");
+		$("#order_value_final").val(finalValue-dicount).trigger("change");
+	});
+	
+	$("#prod_qnt").blur((e) => {
+		var qnt = $("#prod_qnt").val();
+		var value = $("#prod_v_unit").val();
+		
+		
+		$("#prod_v_total").val(qnt*value).trigger("change");
+	});
+	
+	$('.form_number').number(true, 2);
 });
 </script>
 </head>
@@ -156,7 +170,7 @@ $(document).ready(function(){
 					
 					<label for="name" class="col-sm-1 col-form-label">Valor:</label>
 					<div class="col-sm-2">
-						<input type="text" class="form-control" id="order_value_v" readOnly="readonly" 
+						<input type="text" class="form-control form_number" id="order_value_v" readOnly="readonly" 
 							th:value="${#numbers.formatDecimal(order.fullValue, 0, 'COMMA', 2, 'POINT')}"> </input>
 						<input type="hidden" class="form-control" id="order_value" readOnly="readonly"
 							th:field="*{fullValue}"> </input>
@@ -164,7 +178,7 @@ $(document).ready(function(){
 					
 					<label for="name" class="col-sm-1 col-form-label">Desconto:</label>
 					<div class="col-sm-2">
-						<input type="text" class="form-control" id="order_discount_v" 
+						<input type="text" class="form-control form_number" id="order_discount_v" 
 							th:value="${#numbers.formatDecimal(order.discount, 0, 'COMMA', 2, 'POINT')}"> </input>
 						<input type="hidden" class="form-control" id="order_discount" readOnly="readonly"
 							th:field="*{discount}"> </input>
@@ -172,7 +186,7 @@ $(document).ready(function(){
 					
 					<label for="name" class="col-sm-1 col-form-label">Valor Final:</label>
 					<div class="col-sm-2">
-						<input type="text" class="form-control" id="order_value_final_v" readOnly="readonly"
+						<input type="text" class="form-control form_number" id="order_value_final_v" readOnly="readonly"
 							th:value="${#numbers.formatDecimal(order.value, 0, 'COMMA', 2, 'POINT')}"> </input>
 						<input type="hidden" class="form-control" id="order_value_final" readOnly="readonly"
 							th:field="*{value}"> </input>
@@ -205,8 +219,8 @@ $(document).ready(function(){
 					
 					<label for="name" class="col-sm-1 col-form-label">Valor Total:</label>
 					<div class="col-sm-1">
-						<input type="text" class="form-control" id="prod_v_total"
-							> </input>
+						<input type="text" class="form-control form_number" id="prod_v_total"> </input>
+						<input type="hidden" class="form-control" id="prod_v_unit" readOnly="readonly"> </input>
 					</div>
 					
 					<div class="col-sm-1">
