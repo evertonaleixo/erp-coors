@@ -177,12 +177,21 @@ public class OrderController {
 	}
 
 	@GetMapping("/del/{id}")
-	public ModelAndView deleteClient(@PathVariable("id") Long id) {
+	public ModelAndView deleteOrder(@PathVariable("id") Long id) {
 		Order one = orders.findOne(id);
 
 		if (one != null && one.getId() != 0)
 			orders.delete(one);
 
 		return list();
+	}
+	
+	@GetMapping("/imprimir/{id}")
+	public ModelAndView printOrder(@PathVariable("id") Long id) {
+		ModelAndView mav = new ModelAndView("orcamento");
+		Order one = orders.findOne(id);
+		mav.addObject("order", one);
+		
+		return mav;
 	}
 }

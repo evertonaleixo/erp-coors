@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>erp-coors</title>
+
+<div th:replace="fragments/header :: header-css" />
+
+</head>
+
+<body>
+	<div class="container">
+		<div class="row" style="text-align: center; padding-bottom: 40px;">
+			<h1>Orçamento</h1>
+		</div>
+		
+		<div class="row" style="padding-bottom: 50px;">
+			<div class="col-sm-8">
+				<h3>Cliente: <span th:text="${order.client.name}"></span> </h3>
+			</div>
+			<div class="col-sm-4 text-right">
+				<h3> <span th:text="${{order.created}}"> </span> </h3>
+			</div>
+			<div class="col-sm-8">
+				<h3>Endereço: <span th:text="${order.client.address}"></span> </h3>
+			</div>
+			<div class="col-sm-4 text-right">
+				<h3>CPF: <span th:text="${order.client.cpf_cnpj}"></span> </h3>
+			</div>
+			<div class="col-sm-12">
+				<h3>Contato:
+					 <div th:each="phone, stat: ${order.client.phones}">
+					 	<span th:text="${phone.phone}"></span>
+					 </div>
+				 </h3>
+			</div>
+		</div>
+		
+		<div class="row">
+			<table style="" class="table table-hover table-striped" th:object="${order}">
+				<thead>
+					<tr>
+						<th style="text-align: center">Códido</th>
+						<th style="">Descrição</th>
+						<th style="text-align: center">Unidade</th>
+						<th style="text-align: center">Valor Unit.</th>
+						<th style="text-align: center">Quantidade</th>
+						<th style="text-align: center">Valor Total</th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<tr th:each="entry, stat: ${order.products}">
+						<td style="text-align: center" th:text="${entry.key.cod}"></td>
+						<td style="" th:text="${entry.key.description}"></td>
+						<td style="text-align: center" th:text="${entry.key.unit}"></td>
+						<td style="text-align: center" th:text="${#numbers.formatDecimal(entry.key.value, 0, 'COMMA', 2, 'POINT')}"></td>
+						<td style="text-align: center" th:text="${entry.value}"></td>
+						<td class="text-right" th:text="${#numbers.formatDecimal((entry.key.value * entry.value), 0, 'COMMA', 2, 'POINT')}"></td>
+					</tr>
+				</tbody>
+				
+				<tfoot style="font-weight: bold;">
+					<tr class="text-right">
+						<td colspan="5">Sub-total</td>
+						<td th:text="${#numbers.formatDecimal(order.fullValue, 0, 'COMMA', 2, 'POINT')}"></td>
+					</tr>
+					<tr class="text-right">
+						<td colspan="5">Desconto</td>
+						<td th:text="${#numbers.formatDecimal(-order.discount, 0, 'COMMA', 2, 'POINT')}"></td>
+					</tr>
+					<tr class="text-right">
+						<td colspan="5">Total</td>
+						<td th:text="${#numbers.formatDecimal(order.value, 0, 'COMMA', 2, 'POINT')}"></td>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+		
+	</div>
+</body>
+</html>
