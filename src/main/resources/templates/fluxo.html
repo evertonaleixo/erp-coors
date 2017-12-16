@@ -5,18 +5,62 @@
 
     <div th:replace="fragments/header :: header-css"/>
 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.14/jquery.datetimepicker.full.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.14/jquery.datetimepicker.min.css"> </link>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	jQuery.datetimepicker.setLocale('pt-BR');
+
+	$('#data_end').datetimepicker({format:'d/m/Y'});
+	$('#data_ini').datetimepicker({format:'d/m/Y'});
+});
+</script>
 </head>
 <body>
 	<div th:replace="fragments/header :: header"/>
 	
 	<div class="container">
 	
-		Fluxo
-	
-	</div>
-	<!-- /.container -->
-	
-	<div th:replace="fragments/footer :: footer"/>
+		<h2>Selecione o período:</h2>
+		<form th:action="@{/fluxo/ver}">
+			De: <input type="text" id="data_ini" name="data_ini"> </input>
+			Até <input type="text" id="data_end" name="data_end"> </input>
+			
+			<button type="submit" name="view" value="view" class="btn btn-primary">Buscar</button>
+			<button type="submit" name="print" value="print" class="btn btn-success">imprimir</button>
+		</form>
+		
+		<div class="row">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th style="text-align: center; width: 50px;">ID</th>
+						<th>Cliente</th>
+						<th>Data</th>
+						<th>Valor</th>
+						<th style="text-align: center; width: 100px;">Ver</th>
+					</tr>
+				</thead>
 
+				<tbody>
+					<tr th:each="order : ${orders}">
+						<td th:text="${order.id}" style="text-align: center;"></td>
+						<td th:text="${order.client.name}"></td>
+						<td th:text="${{order.created}}"></td>
+						<td th:text="${#numbers.formatDecimal(order.value, 0, 'COMMA', 2, 'POINT')}"></td>
+						<td style="text-align: center;">
+							<div class="btn-group">
+								<a class="btn btn-sm btn-primary"
+									th:href="@{/orcamentos/imprimir/{id}(id=${order.id})}">Detalhes</a>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<div th:replace="fragments/footer :: footer"/>
 </body>
 </html>
