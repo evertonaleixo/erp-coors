@@ -8,14 +8,14 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.14/jquery.datetimepicker.full.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.14/jquery.datetimepicker.min.css"> </link>
 
-<script type="text/javascript">
-$(document).ready(function(){
-	jQuery.datetimepicker.setLocale('pt-BR');
-
-	$('#data_end').datetimepicker({format:'d/m/Y'});
-	$('#data_ini').datetimepicker({format:'d/m/Y'});
-});
-</script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		jQuery.datetimepicker.setLocale('pt-BR');
+	
+		$('#data_end').datetimepicker({format:'d/m/Y'});
+		$('#data_ini').datetimepicker({format:'d/m/Y'});
+	});
+	</script>
 </head>
 <body>
 	<div th:replace="fragments/header :: header"/>

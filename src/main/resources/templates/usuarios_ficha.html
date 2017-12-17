@@ -13,33 +13,28 @@
 	
 	    <div class="row" style="margin-top:20px">
 	        <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-	            <form th:action="@{/login}" method="post">
+	            <form th:action="@{/usuarios/novo}" th:object="${user}" method="POST">
 	                <fieldset>
-	                    <h1 class="text-center">Entrar</h1>
-	
-	                    <div th:if="${param.error}">
-	                        <div class="alert alert-danger">
-	                            Usuário ou senha inválidos.
-	                        </div>
-	                    </div>
-	                    <div th:if="${param.logout}">
-	                        <div class="alert alert-info">
-	                            Você desconectou.
-	                        </div>
-	                    </div>
+	                    <h1 class="text-center">Novo usuário</h1>
 	
 	                    <div class="form-group">
-	                        <input type="text" name="username" id="username" class="form-control input-lg"
+	                        <input type="text" th:field="*{name}" class="form-control input-lg"
 	                               placeholder="Usuário" required="true" autofocus="true"/>
 	                    </div>
 	                    <div class="form-group">
-	                        <input type="password" name="password" id="password" class="form-control input-lg"
+	                        <input type="password" th:field="*{passwd}" class="form-control input-lg"
 	                               placeholder="Senha" required="true"/>
+	                    </div>
+	                    <div class="form-group">
+	                        <select class="selectpicker form-control" name="role" th:field="*{role}">
+	                        	<option value="USER">Usuário</option>
+	                        	<option value="ADMIN">Administrador</option>
+	                        </select>
 	                    </div>
 	
 	                    <div class="row">
 	                        <div class="col-xs-6 col-sm-6 col-md-6">
-	                            <input type="submit" class="btn btn-lg btn-primary btn-block" value="Entrar"/>
+	                            <input type="submit" class="btn btn-lg btn-primary btn-block" value="Cadastrar"/>
 	                        </div>
 	                        <div class="col-xs-6 col-sm-6 col-md-6">
 	                        </div>
