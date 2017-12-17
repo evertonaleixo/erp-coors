@@ -24,8 +24,8 @@ $(document).ready(function(){
 	
 		<h2>Selecione o período:</h2>
 		<form th:action="@{/fluxo/ver}">
-			De: <input type="text" id="data_ini" name="data_ini"> </input>
-			Até <input type="text" id="data_end" name="data_end"> </input>
+			De: <input type="text" id="data_ini" name="data_ini" th:value="${date_ini}?${#dates.format(date_ini, 'dd/MM/yyyy')}:''"> </input>
+			Até <input type="text" id="data_end" name="data_end" th:value="${date_end}?${#dates.format(date_end, 'dd/MM/yyyy')}:''"> </input>
 			
 			<button type="submit" name="view" value="view" class="btn btn-primary">Buscar</button>
 			<button type="submit" name="print" value="print" class="btn btn-success">imprimir</button>

@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>erp-coors</title>
+
+<div th:replace="fragments/header :: header-css" />
+
+</head>
+
+<body>
+	<div class="container">
+		<div class="row" style="padding-bottom: 40px;">
+			<h1 class="text-center"> 
+				<span>Fluxo de </span>
+				<span th:text="${{date_ini}}"></span>
+				<span> até </span>
+				<span th:text="${{date_end}}"></span>
+			</h1>
+		</div>
+		
+		<div class="row">
+			<table style="" class="table table-hover table-striped">
+				<thead>
+					<tr>
+						<th style="text-align: center">Códido</th>
+						<th style="">Cliente</th>
+						<th style="text-align: center">Data</th>
+						<th style="text-align: center">Valor</th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<tr th:each="order, stat: ${orders}">
+						<td style="text-align: center" th:text="${order.id}"></td>
+						<td style="" th:text="${order.client.name}"></td>
+						<td style="text-align: center" th:text="${{order.created}}"></td>
+						<td style="text-align: center" th:text="${#numbers.formatDecimal(orders[__${stat.index}__].value, 0, 'COMMA', 2, 'POINT')}"></td>
+					</tr>
+				</tbody>
+				
+				<tfoot style="font-weight: bold;">
+					<tr class="text-right">
+						<td colspan="3">Ticket médio</td>
+						<td th:text="${#numbers.formatDecimal(ticket, 0, 'COMMA', 2, 'POINT')}"></td>
+					</tr>
+					<tr class="text-right">
+						<td colspan="3">Total Vendas</td>
+						<td th:text="${#numbers.formatDecimal(totalInProd, 0, 'COMMA', 2, 'POINT')}"></td>
+					</tr>
+					<tr class="text-right">
+						<td colspan="3">Total Descontos</td>
+						<td th:text="${#numbers.formatDecimal(totalInProd, 0, 'COMMA', 2, 'POINT')}"></td>
+					</tr>
+					<tr class="text-right">
+						<td colspan="3">Total Arrecadado</td>
+						<td th:text="${#numbers.formatDecimal(totalValue, 0, 'COMMA', 2, 'POINT')}"></td>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+		
+	</div>
+</body>
+</html>
