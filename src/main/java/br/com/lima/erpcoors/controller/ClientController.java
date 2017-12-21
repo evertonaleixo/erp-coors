@@ -62,6 +62,20 @@ public class ClientController {
 		return mav;
 	}
 	
+	@GetMapping(value="/listar", params = {"filter"})
+	public ModelAndView clientesFiltered(@RequestParam String filter) {
+		filter = filter.trim();
+		if(filter.isEmpty())
+			return clientes();
+		
+		ModelAndView mav = new ModelAndView("clientes");
+		List<Client> filtered = clients.customQuery(filter);
+		
+		mav.addObject("clients", filtered);
+		
+		return mav;
+	}
+	
 	@GetMapping("/{id}")
 	public ModelAndView updateClient(@PathVariable("id") Long id) {
 		Client one = clients.findOne(id);
