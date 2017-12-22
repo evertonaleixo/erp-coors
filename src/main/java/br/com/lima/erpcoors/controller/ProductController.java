@@ -46,6 +46,20 @@ public class ProductController {
 
 		return mav;
 	}
+	
+	@GetMapping(value="/listar", params = {"filter"})
+	public ModelAndView listFiltered(@RequestParam String filter) {
+		filter = filter.trim();
+		if(filter.isEmpty())
+			return list();
+		
+		ModelAndView mav = new ModelAndView("produtos");
+		List<Product> filtered = products.customQuery(filter);
+		
+		mav.addObject("products", filtered);
+		
+		return mav;
+	}
 
 	@GetMapping("/{id}")
 	public ModelAndView updateProduct(@PathVariable("id") Long id) {

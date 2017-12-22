@@ -10,7 +10,6 @@ import br.com.lima.erpcoors.model.Client;
 
 public interface ClientRepository extends JpaRepository<Client, Long> {
 	
-	@Query("SELECT p FROM Client p WHERE LOWER(p.name) LIKE CONCAT('%',LOWER(:name),'%')"
-			+ "")
+	@Query("SELECT p FROM Client p WHERE LOWER(p.name) LIKE CONCAT('%',LOWER(:name),'%')")
     public List<Client> customQuery(@Param("name") String name);
 }
