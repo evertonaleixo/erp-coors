@@ -12,7 +12,7 @@ import javax.persistence.OneToMany;
 @Entity
 public class Client {
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	
 	private String cpf_cnpj;

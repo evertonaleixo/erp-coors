@@ -24,7 +24,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Order {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
 	@NotNull 

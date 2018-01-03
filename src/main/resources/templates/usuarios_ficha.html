@@ -18,17 +18,17 @@
 	                    <h1 class="text-center">Novo usuário</h1>
 	
 	                    <div class="form-group">
-	                        <input type="text" th:field="*{name}" class="form-control input-lg"
+	                        <input type="text" th:field="*{username}" class="form-control input-lg"
 	                               placeholder="Usuário" required="true" autofocus="true"/>
 	                    </div>
 	                    <div class="form-group">
-	                        <input type="password" th:field="*{passwd}" class="form-control input-lg"
+	                        <input type="password" th:field="*{password}" class="form-control input-lg"
 	                               placeholder="Senha" required="true"/>
 	                    </div>
 	                    <div class="form-group">
 	                        <select class="selectpicker form-control" name="role" th:field="*{role}">
-	                        	<option value="USER">Usuário</option>
-	                        	<option value="ADMIN">Administrador</option>
+	                        	<option value="ROLE_USER">Usuário</option>
+	                        	<option value="ROLE_ADMIN">Administrador</option>
 	                        </select>
 	                    </div>
 	

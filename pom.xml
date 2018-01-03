@@ -38,6 +38,10 @@
             <groupId>org.thymeleaf.extras</groupId>
             <artifactId>thymeleaf-extras-springsecurity4</artifactId>
         </dependency>
+        <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -60,11 +64,21 @@
 		
 		<!-- THIS PROJECT DEPENDENCIES -->
 		<!-- Database dependencies -->
-		<dependency>
+		<!-- <dependency>
 	        <groupId>com.h2database</groupId>
 	        <artifactId>h2</artifactId>
 	        <version>1.3.156</version>
-	    </dependency>
+	    </dependency> -->
+	    <!-- JDBC -->      
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            </dependency>
+        <!-- MySQL -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
 		
 		<!-- Webjars - To Load some css/js direct from jar -->
 		<dependency>

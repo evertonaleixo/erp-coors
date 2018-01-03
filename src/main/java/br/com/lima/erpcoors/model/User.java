@@ -1,50 +1,37 @@
 package br.com.lima.erpcoors.model;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity(name = "user_table")
+@Entity(name = "users")
 public class User {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private long id;
+	private String username;
+	private boolean enabled;
+	private String password;
 
-	private String role;
-	private String name;
-	private String passwd;
-
-	public long getId() {
-		return id;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
-	public String getRole() {
-		return role;
+	public boolean isEnabled() {
+		return enabled;
 	}
 
-	public void setRole(String role) {
-		this.role = role;
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 
-	public String getName() {
-		return name;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getPasswd() {
-		return passwd;
-	}
-
-	public void setPasswd(String passwd) {
-		this.passwd = passwd;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 }

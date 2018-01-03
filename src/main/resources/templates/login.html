@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
 <head>
     <title>erp-coors</title>
     <div th:replace="fragments/header :: header-css"/>
@@ -35,6 +34,8 @@
 	                    <div class="form-group">
 	                        <input type="password" name="password" id="password" class="form-control input-lg"
 	                               placeholder="Senha" required="true"/>
+	                               
+	                         <input type="hidden" name="${_csrf.parameterName}"  value="${_csrf.token}" />
 	                    </div>
 	
 	                    <div class="row">
