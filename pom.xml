@@ -75,10 +75,16 @@
             <artifactId>spring-jdbc</artifactId>
             </dependency>
         <!-- MySQL -->
-        <dependency>
+        <!-- <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-        </dependency>
+        </dependency> -->
+        <!-- PostgreSQL -->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 		
 		<!-- Webjars - To Load some css/js direct from jar -->
 		<dependency>
