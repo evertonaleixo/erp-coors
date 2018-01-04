@@ -28,19 +28,10 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter {
 
 	@Bean(name = "dataSource")
 	public DriverManagerDataSource dataSource() {
-		
-		
-		String usrName = "lphhmajmocspmx";
-		String pwd = "457580ed808a085833e476a147dec1d043ac27b1fff7fcb29196e04d4042be5d";
-		String url = "jdbc:postgresql://ec2-54-235-85-127.compute-1.amazonaws.com:5432/de1lr14lshg058";
-		String driver = "org.postgresql.Driver";
-
-		if(dev) {
-			usrName = "root";
-			pwd = "test";
-			url = "jdbc:mysql://localhost/coors";
-			driver = "com.mysql.jdbc.Driver";
-		}
+		String usrName = "root";
+		String pwd = "test";
+		String url = "jdbc:mysql://localhost/coors";
+		String driver = "com.mysql.jdbc.Driver";
 		
 		DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
 		driverManagerDataSource.setDriverClassName(driver);
