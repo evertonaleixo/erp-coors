@@ -1,6 +1,5 @@
 package br.com.lima.erpcoors.controller;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,18 +24,9 @@ public class ProductController {
 	
 	@GetMapping(path = "/filtrar", produces= {MediaType.APPLICATION_JSON_VALUE})
 	public @ResponseBody List<Product> filterSugestion(@RequestParam String phrase) {
-		List<Product> all = products.findAll();
+		List<Product> filtered = products.customQuery(phrase);
 		
-		Product prod = new Product();
-		prod.setCod("0012");
-		prod.setDescription("Calcio");
-		prod.setId(1);
-		prod.setUnit("Cx");
-		prod.setValue(new BigDecimal(43.50));
-		
-		all.add(prod);
-		
-		return all;
+		return filtered;
 	}
 
 	@GetMapping("/listar")

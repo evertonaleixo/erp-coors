@@ -43,21 +43,21 @@
 				</tbody>
 				
 				<tfoot style="font-weight: bold;">
-					<tr class="text-right">
-						<td colspan="3">Ticket médio</td>
-						<td th:text="${#numbers.formatDecimal(ticket, 0, 'COMMA', 2, 'POINT')}"></td>
+					<tr>
+						<td class="text-right" colspan="3">Ticket médio</td>
+						<td class="text-center" th:text="${#numbers.formatDecimal(ticket, 0, 'COMMA', 2, 'POINT')}"></td>
 					</tr>
-					<tr class="text-right">
-						<td colspan="3">Total Vendas</td>
-						<td th:text="${#numbers.formatDecimal(totalInProd, 0, 'COMMA', 2, 'POINT')}"></td>
+					<tr>
+						<td class="text-right" colspan="3">Total Vendas</td>
+						<td class="text-center" th:text="${#numbers.formatDecimal(totalInProd, 0, 'COMMA', 2, 'POINT')}"></td>
 					</tr>
-					<tr class="text-right">
-						<td colspan="3">Total Descontos</td>
-						<td th:text="${#numbers.formatDecimal(totalInProd, 0, 'COMMA', 2, 'POINT')}"></td>
+					<tr>
+						<td class="text-right" colspan="3">Total Descontos</td>
+						<td class="text-center" th:text="${#numbers.formatDecimal(totalDiscount, 0, 'COMMA', 2, 'POINT')}"></td>
 					</tr>
-					<tr class="text-right">
-						<td colspan="3">Total Arrecadado</td>
-						<td th:text="${#numbers.formatDecimal(totalValue, 0, 'COMMA', 2, 'POINT')}"></td>
+					<tr>
+						<td class="text-right" colspan="3">Total Arrecadado</td>
+						<td class="text-center" th:text="${#numbers.formatDecimal(totalValue, 0, 'COMMA', 2, 'POINT')}"></td>
 					</tr>
 				</tfoot>
 			</table>

@@ -12,7 +12,6 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 // @EnableWebMvc --> Not use this annotation. If you use, the WebMVC will force
 // static-files resource configuration, and you lose access.
 public class MvcConfiguration extends WebMvcConfigurerAdapter {
-	private boolean dev = false;
 	
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {

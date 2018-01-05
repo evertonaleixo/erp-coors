@@ -34,23 +34,9 @@ public class ClientController {
 
 	@GetMapping(path = "/filtrar", produces= {MediaType.APPLICATION_JSON_VALUE})
 	public @ResponseBody List<Client> filterSugestion(@RequestParam String phrase) {
-		List<Client> all = clients.findAll();
+		List<Client> filtered = clients.customQuery(phrase);
 		
-		Client cli = new Client();
-		cli.setAddress("Rua 10");
-		cli.setCpf_cnpj("02932165178");
-		cli.setId(7777);
-		cli.setName("Everton ALeixo");
-		List<Phone> phones = new ArrayList<>();
-		Phone f = new Phone();
-		f.setId(456);
-		f.setPhone("981181968");
-		phones.add(f);
-		cli.setPhones(phones);
-		
-		all.add(cli);
-		
-		return all;
+		return filtered;
 	}
 	
 	

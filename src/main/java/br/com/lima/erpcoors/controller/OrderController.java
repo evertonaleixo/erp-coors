@@ -3,10 +3,7 @@ package br.com.lima.erpcoors.controller;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 import br.com.lima.erpcoors.model.Order;
 import br.com.lima.erpcoors.model.OrderDTO;
 import br.com.lima.erpcoors.model.Product;
-import br.com.lima.erpcoors.repository.ClientRepository;
 import br.com.lima.erpcoors.repository.OrderRepository;
 import br.com.lima.erpcoors.repository.ProductRepository;
 
@@ -34,9 +30,21 @@ public class OrderController {
 	@Autowired
 	private ProductRepository products;
 
-	@Autowired
-	private ClientRepository clients;
+	@GetMapping(value="/listar" , params = {"filter"})
+	public ModelAndView listFiltered(@RequestParam String filter) {
+		ModelAndView mav = new ModelAndView("orcamentos");
 
+		List<OrderDTO> list = new ArrayList<>();
+		List<Order> findAll = orders.customQuery(filter);
+		for (Order o : findAll) {
+			list.add(new OrderDTO(o));
+		}
+
+		mav.addObject("orders", list);
+
+		return mav;
+	}
+	
 	@GetMapping("/listar")
 	public ModelAndView list() {
 		ModelAndView mav = new ModelAndView("orcamentos");
@@ -66,24 +74,6 @@ public class OrderController {
 		if (order.getId() < 0) {
 			order.setId(0L);
 		}
-
-		// TODO: Throw exception
-		if (clients.exists(order.getClient().getId())) {
-
-		}
-		else { // TODO: REMOVE THIS ELSE BLOCK
-			order.setClient(clients.save(order.getClient()));
-			Map<Product, Double> map = new HashMap<>();
-			for(Entry<Product, Double> en: order.getProducts().entrySet()) {
-				if(!products.exists(en.getKey().getId())) {
-					Product save = products.save(en.getKey());
-					map.put(save, en.getValue());
-				} else {
-					map.put(en.getKey(), en.getValue());
-				}
-			}
-			order.setProducts(map);
-		}
 		
 		if (order.getCreated() == null) {
 			order.setCreated(new Date(System.currentTimeMillis()));
@@ -99,17 +89,6 @@ public class OrderController {
 			@RequestParam(value = "prod_qnt") BigDecimal qnt, BindingResult bindingResult) {
 
 		Product product = products.getOne(idProd);
-
-		try {
-			product.getId();
-		} catch (Exception e) {
-			product = new Product();
-			product.setCod("cal");
-			product.setId(idProd);
-			product.setDescription("Calcio");
-			product.setUnit("Cx");
-			product.setValue(new BigDecimal(45.3));
-		}
 
 		int index = -1;
 		for (int i = 0; i < order.getProds().size(); i++) {
@@ -150,7 +129,6 @@ public class OrderController {
 				break;
 			}
 		}
-
 		
 		if (index == -1) {
 			return getFicha(order, bindingResult);
